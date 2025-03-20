@@ -3,3 +3,6 @@ retail_sales_dataset.csv
 retail_data.csv
 clean.py
 venv/
+python/
+venv/
+tf-resources/.terraform/

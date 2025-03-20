@@ -1,0 +1,25 @@
+data "aws_iam_role" "tf_glue_job_role" {
+  name = "tf-glue-job-access"
+}
+
+data "aws_s3_bucket" "glue_bucket" {
+  bucket = "aws-glue-assets-kaggle-data" #use this predefined aws glue_bucket
+}
+
+# Upload the PySpark script to S3
+resource "aws_s3_object" "glue_script" {
+  bucket = data.aws_s3_bucket.glue_bucket.bucket
+  key    = "scripts/tf-codeathon-job.py" # S3 key for the script
+  source = "../tf-codeathon-job.py"      # Path to the local script file
+}
+
+
+# Glue Job
+resource "aws_glue_job" "codeathon_job" {
+  name         = "tf-codeathon-job"
+  role_arn     = data.aws_iam_role.tf_glue_job_role.arn # attach a role for Glue
+  glue_version = "5.0"
+  command {
+    script_location = "s3://${aws_s3_object.glue_script.bucket}/${aws_s3_object.glue_script.key}" # add your Glue script location
+  }
+}
