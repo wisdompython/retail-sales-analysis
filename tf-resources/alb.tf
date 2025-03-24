@@ -15,7 +15,7 @@ output "public_subnets" {
 }
 
 resource "aws_alb" "alb" {
-  name            = "tf-alb-retail-sales"
+  name            = "tf-dae-alb-streamlit"
   security_groups = [aws_security_group.alb.id]
   subnets         = data.aws_subnets.public_subnets.ids
 }
@@ -37,7 +37,7 @@ resource "aws_alb_listener" "alb_default_listener_http" {
 ########################################################################################################################
 
 resource "aws_alb_target_group" "service_target_group" {
-  name                 = "tf-target-group"
+  name                 = "tf-dae-steramlit-tg"
   port                 = 8501
   protocol             = "HTTP"
   vpc_id               = var.vpc_id

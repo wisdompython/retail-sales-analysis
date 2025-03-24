@@ -1,11 +1,11 @@
 # Data source to retrieve the ecr repository
 data "aws_ecr_repository" "ecr_repository" {
-  name = "retail-analysis"
+  name = "dae-codeathon-ecr"
 }
 
 # Data source to retrieve the latest image
 data "aws_ecr_image" "latest_image" {
-  repository_name = "retail-analysis"
+  repository_name = "dae-codeathon-ecr"
   most_recent     = true
 }
 

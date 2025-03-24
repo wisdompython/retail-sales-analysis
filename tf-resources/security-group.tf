@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 resource "aws_security_group" "ecs_container_instance" {
-  name        = "tf-ecs-security-group"
+  name        = "tf-dae-ecs-sg"
   description = "Security group for ECS task running on Fargate"
   vpc_id      = var.vpc_id
 
@@ -29,7 +29,7 @@ resource "aws_security_group" "ecs_container_instance" {
 ########################################################################################################################
 
 resource "aws_security_group" "alb" {
-  name        = "tf-alb-security-group"
+  name        = "tf-dae-alb-sg"
   description = "Security group for ALB"
   vpc_id      = var.vpc_id
 

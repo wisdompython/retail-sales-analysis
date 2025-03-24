@@ -1,13 +1,13 @@
 resource "aws_glue_crawler" "codeathon_crawler" {
   database_name = aws_glue_catalog_database.codeathon_catalog_db.name
-  name          = "tf-glue-crawler"
+  name          = "tf-dae-streamlit-crawler"
   role          = data.aws_iam_role.tf_glue_job_role.arn
 
   s3_target {
     path = "s3://${aws_s3_bucket.bucket-data.bucket}/processed/"
   }
 
-  depends_on = [aws_s3_bucket.bucket-data, aws_glue_catalog_database.codeathon_catalog_db]
+  depends_on = [aws_s3_bucket.bucket-data]
 }
 
 resource "null_resource" "start_glue_crawler" {
@@ -17,6 +17,24 @@ resource "null_resource" "start_glue_crawler" {
 
   depends_on = [aws_glue_crawler.codeathon_crawler]
 }
+
+# resource "aws_glue_trigger" "trigger_codeathon_crawler" {
+#   name = "tf-codeathon-trigger"
+#   type = "CONDITIONAL"
+
+#   actions {
+#     crawler_name = aws_glue_crawler.codeathon_crawler.name
+#   }
+
+#   predicate {
+#     conditions {
+#       job_name = aws_glue_job.codeathon_job.name
+#       state    = "SUCCEEDED"
+#     }
+#   }
+
+#   depends_on = [aws_glue_crawler.codeathon_crawler]
+# }
 
 resource "null_resource" "wait_for_glue_tables" {
   provisioner "local-exec" {
@@ -36,5 +54,4 @@ resource "null_resource" "wait_for_glue_tables" {
     EOT
   }
 
-  depends_on = [null_resource.start_glue_crawler]
 }

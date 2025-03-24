@@ -10,7 +10,7 @@ locals {
 }
 
 resource "aws_glue_catalog_database" "codeathon_catalog_db" {
-  name = "tf-catalog-database"
+  name = "kaggle-data"
 }
 
 # Grant Lake Formation permissions to principals in Glue database
@@ -29,7 +29,7 @@ resource "aws_lakeformation_permissions" "glue_db_lf_access" {
 
 resource "null_resource" "delay_after_table_creation" {
   provisioner "local-exec" {
-    command = "sleep 120"  # Wait for 180 seconds
+    command = "sleep 120"  # Wait for 120 seconds for table to sync in lakeformation
   }
 
   depends_on = [null_resource.wait_for_glue_tables]

@@ -16,7 +16,7 @@ resource "aws_s3_object" "glue_script" {
 
 # Glue Job
 resource "aws_glue_job" "codeathon_job" {
-  name         = "tf-codeathon-job"
+  name         = "tf-dae-codeathon-job"
   role_arn     = data.aws_iam_role.tf_glue_job_role.arn # attach a role for Glue
   glue_version = "5.0"
   command {

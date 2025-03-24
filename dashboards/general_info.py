@@ -7,9 +7,10 @@ import pyathena
 
 st.title("Retail Sales Customer Behaviour Analysis")
 
-TABLE_NAME = ""
-DATABASE = ""
-S3_BUCKET = ""
+TABLE_NAME = os.getenv("TABLE_NAME")
+DATABASE = os.getenv("DATABASE_NAME")
+S3_BUCKET = os.getenv("S3_BUCKET_NAME")
+REGION = os.getenv("REGION")
 
 @st.cache_data
 def query_data(
@@ -26,7 +27,7 @@ def query_data(
 def plot_age_group():
 
     df: pd.DataFrame = query_data(
-        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET
+        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET, region=REGION
     )
     st.header("Age group distribution")
 

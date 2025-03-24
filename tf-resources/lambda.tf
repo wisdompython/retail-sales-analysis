@@ -20,7 +20,7 @@ data "aws_iam_role" "tf_lambda_role" {
 # }
 
 data "aws_s3_object" "lambda_layer" {
-  bucket = "maryam-lambda-layer-s3"
+  bucket = "dae-lambda-layer-bucket"
   key    = "retail_lambda_layer.zip"
 }
 
@@ -43,7 +43,7 @@ data "archive_file" "lambda" {
 
 resource "aws_lambda_function" "tf_kaggle_lambda" {
   filename      = data.archive_file.lambda.output_path
-  function_name = "tf_retail_sales_dataset"
+  function_name = "tf_dae_streamlit"
   role          = data.aws_iam_role.tf_lambda_role.arn
   handler       = "lambda_function.lambda_handler"
   timeout       = 600
@@ -69,4 +69,6 @@ resource "aws_lambda_invocation" "tf_kaggle_lambda_invoke" {
   function_name = aws_lambda_function.tf_kaggle_lambda.function_name
 
   input = jsonencode({})
+
+  depends_on = [aws_glue_job.codeathon_job]
 }

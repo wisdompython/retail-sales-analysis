@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket-data" {
-  bucket        = "tf-sales-analysis-data"
+  bucket        = "tf-dae-streamlit-bucket-data"
   force_destroy = true
 
   tags = {
