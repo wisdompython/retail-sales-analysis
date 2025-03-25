@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.express as px
-import pyathena 
+import pyathena
+import os
 
 
 st.title("Retail Sales Customer Behaviour Analysis")
