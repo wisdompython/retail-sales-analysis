@@ -6,7 +6,7 @@ data "aws_subnets" "public_subnets" {
 
   filter {
     name   = "tag:Name"
-    values = ["kaggle-data-vpc-subnet-public*"]
+    values = ["dae-streamlit-vpc-subnet-public*"]
   }
 }
 

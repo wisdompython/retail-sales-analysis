@@ -9,7 +9,7 @@ variable "kaggle_key" {
 }
 
 variable "vpc_id" {
-  description = "ID of the existing VPC network - kaggle-data-vpc"
-  default     = "vpc-022ef429af1c28b08"
+  description = "ID of the existing VPC network - dae-streamlit-vpc"
+  default     = "vpc-07fa9490c2fc36a95"
   type        = string
 }

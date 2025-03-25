@@ -58,11 +58,9 @@ resource "aws_lambda_function" "tf_kaggle_lambda" {
       KAGGLE_USERNAME = var.kaggle_username # Replace with your Kaggle username
       KAGGLE_KEY      = var.kaggle_key      # Replace with your Kaggle API key
       S3_BUCKET_NAME  = aws_s3_bucket.bucket-data.bucket
-      GLUE_JOB_NAME   = aws_glue_job.codeathon_job.name
+      GLUE_JOB_TRIGGER_NAME   = aws_glue_trigger.trigger_glue_job.name
     }
   }
-
-  #depends_on = [ aws_glue_job.codeathon_job ]
 }
 
 resource "aws_lambda_invocation" "tf_kaggle_lambda_invoke" {
@@ -70,5 +68,5 @@ resource "aws_lambda_invocation" "tf_kaggle_lambda_invoke" {
 
   input = jsonencode({})
 
-  depends_on = [aws_glue_job.codeathon_job]
+  depends_on = [ aws_glue_trigger.trigger_glue_job ]
 }

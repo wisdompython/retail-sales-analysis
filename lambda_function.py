@@ -36,19 +36,13 @@ def lambda_handler(event, context):
                         Key=s3_key
                     )
                 # Trigger Glue job for each CSV
-                glue_job_name=os.environ['GLUE_JOB_NAME']
+                glue_job_name=os.environ['GLUE_JOB_TRIGGER_NAME']
 
                 glue = boto3.client('glue')
                 input_s3_path = f's3://{os.environ["S3_BUCKET_NAME"]}/{s3_key}'
-                output_s3_path = f's3://{os.environ["S3_BUCKET_NAME"]}/processed/'
+                # output_s3_path = f's3://{os.environ["S3_BUCKET_NAME"]}/processed/'
 
-                glue.start_job_run(
-                    JobName=glue_job_name,
-                    Arguments={
-                        '--INPUT_S3_PATH': input_s3_path,
-                        '--OUTPUT_S3_PATH': output_s3_path
-                    }
-                )
+                glue.start_trigger(Name=glue_job_name)
 
         
         glue_message = f"Triggered Glue job: {glue_job_name} with input path: {input_s3_path}"

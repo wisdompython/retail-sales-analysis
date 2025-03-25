@@ -22,4 +22,19 @@ resource "aws_glue_job" "codeathon_job" {
   command {
     script_location = "s3://${aws_s3_object.glue_script.bucket}/${aws_s3_object.glue_script.key}" # add your Glue script location
   }
+
+  default_arguments = {
+    "--INPUT_S3_PATH"  = "s3://${aws_s3_bucket.bucket-data.bucket}/raw"
+    "--OUTPUT_S3_PATH" = "s3://${aws_s3_bucket.bucket-data.bucket}/processed/"
+  }
+}
+
+resource "aws_glue_trigger" "trigger_glue_job" {
+  name    = "trigger-glue-job"
+  type    = "ON_DEMAND"
+  enabled = true
+
+  actions {
+    job_name = aws_glue_job.codeathon_job.name
+  }
 }
