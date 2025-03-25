@@ -14,6 +14,7 @@ EXPOSE 8501
 
 ENTRYPOINT [ "streamlit", "run", "app.py", \
     "--server.port", "8501", \
-    "--server.enableCORS", "true", \
-    "--browser.serverAddress", "0.0.0.0", \
-    "--browser.serverPort", "443"]
+    "--server.enableCORS", "true"]
+
+    # "--browser.serverAddress", "0.0.0.0", \
+    # "--browser.serverPort", "443"

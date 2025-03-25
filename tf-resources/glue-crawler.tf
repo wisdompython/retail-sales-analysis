@@ -18,24 +18,6 @@ resource "null_resource" "start_glue_crawler" {
   depends_on = [aws_glue_crawler.codeathon_crawler]
 }
 
-# resource "aws_glue_trigger" "trigger_codeathon_crawler" {
-#   name = "tf-codeathon-trigger"
-#   type = "CONDITIONAL"
-
-#   actions {
-#     crawler_name = aws_glue_crawler.codeathon_crawler.name
-#   }
-
-#   predicate {
-#     conditions {
-#       job_name = aws_glue_job.codeathon_job.name
-#       state    = "SUCCEEDED"
-#     }
-#   }
-
-#   depends_on = [aws_glue_crawler.codeathon_crawler]
-# }
-
 resource "null_resource" "wait_for_glue_tables" {
   provisioner "local-exec" {
     command = <<EOT
@@ -47,11 +29,12 @@ resource "null_resource" "wait_for_glue_tables" {
           exit 0
         fi
         echo "No tables found yet. Retrying in 30 seconds..."
-        sleep 180
+        sleep 300
       done
       echo "Error: Tables were not registered in Glue within the expected time."
       exit 1
     EOT
   }
 
+  depends_on = [null_resource.start_glue_crawler]
 }
