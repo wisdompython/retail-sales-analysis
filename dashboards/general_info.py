@@ -16,6 +16,8 @@ DATABASE = os.getenv("DATABASE_NAME")
 S3_BUCKET_PATH = os.getenv("S3_BUCKET_PATH")
 REGION = os.getenv("REGION")
 
+print("TABLE_NAME:", os.getenv("TABLE_NAME"))
+
 @st.cache_data
 def query_data(
         table_name: str, database: str, s3_dir: str, region: str
