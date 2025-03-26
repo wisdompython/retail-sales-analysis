@@ -9,7 +9,7 @@ def age_group_purchases():
     
     st.header("Spending Power by age group".capitalize())
     df: pd.DataFrame = query_data(
-        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET, region=REGION
+        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET_PATH, region=REGION
     )
     fig = px.histogram(data_frame= df, x='age group', y='total amount')
     st.plotly_chart(fig)

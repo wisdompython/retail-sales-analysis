@@ -10,7 +10,7 @@ st.title("Retail Sales Customer Behaviour Analysis")
 
 TABLE_NAME = os.getenv("TABLE_NAME")
 DATABASE = os.getenv("DATABASE_NAME")
-S3_BUCKET = os.getenv("S3_BUCKET_NAME")
+S3_BUCKET_PATH = os.getenv("S3_BUCKET_PATH")
 REGION = os.getenv("REGION")
 
 @st.cache_data
@@ -28,7 +28,7 @@ def query_data(
 def plot_age_group():
 
     df: pd.DataFrame = query_data(
-        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET, region=REGION
+        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET_PATH, region=REGION
     )
     st.header("Age group distribution")
 
@@ -44,7 +44,7 @@ def plot_age_group():
 def spending_power():
     st.header("Spending Power")
     df: pd.DataFrame = query_data(
-        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET
+        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET_PATH, region=REGION
     )
     fig = px.histogram(data_frame= df, x='gender', y='total amount')
     st.plotly_chart(fig)
@@ -54,7 +54,7 @@ def purchase_by_gender(gender):
     st.header(f"{gender} purchases".capitalize())
     
     df: pd.DataFrame = query_data(
-        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET
+        table_name=TABLE_NAME, database=DATABASE, s3_dir=S3_BUCKET_PATH, region=REGION
     )
     
     fig = px.histogram(data_frame= df[df['gender'] == gender], x='product category', y='total amount')

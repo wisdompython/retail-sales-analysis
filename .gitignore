@@ -7,3 +7,5 @@ venv/
 python/
 venv/
 tf-resources/.terraform/
+awscliv2.zip
+~/.aws
