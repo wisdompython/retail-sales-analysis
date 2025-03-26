@@ -4,6 +4,9 @@ import numpy as np
 import plotly.express as px
 import pyathena
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 st.title("Retail Sales Customer Behaviour Analysis")
