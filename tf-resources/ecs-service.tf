@@ -15,11 +15,13 @@ output "private_subnets" {
 }
 
 resource "aws_ecs_service" "ecs_service" {
-  name            = "tf-dae-streamlit-service"
-  cluster         = aws_ecs_cluster.ecs_cluster.id
-  task_definition = aws_ecs_task_definition.ecs_task_def.arn
-  desired_count   = 2
-  launch_type     = "FARGATE"
+  name                               = "tf-dae-streamlit-service"
+  cluster                            = aws_ecs_cluster.ecs_cluster.id
+  task_definition                    = aws_ecs_task_definition.ecs_task_def.arn
+  desired_count                      = 2
+  deployment_minimum_healthy_percent = 50
+  deployment_maximum_percent         = 100
+  launch_type                        = "FARGATE"
   #   depends_on      = [aws_iam_role_policy.foo]
 
   deployment_circuit_breaker {

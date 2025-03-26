@@ -6,6 +6,7 @@ locals {
   lakeformation_roles = {
     "glue_access_role"      = data.aws_iam_role.tf_glue_job_role.arn
     "data_engineering_role" = data.aws_iam_role.tf_user_role.arn
+    "ecs-streamlit_role"    = data.aws_iam_role.ecs_task_role.arn
   }
 }
 

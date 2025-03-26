@@ -11,7 +11,7 @@ data "aws_ecr_image" "latest_image" {
 
 # Output to display the latest ECR image URI
 output "latest_ecr_image_uri" {
-  value       = "${data.aws_ecr_repository.ecr_repository.repository_url}@${data.aws_ecr_image.latest_image.image_digest}"
+  value = "${data.aws_ecr_repository.ecr_repository.repository_url}@${data.aws_ecr_image.latest_image.image_digest}"
   #value       = "${data.aws_ecr_repository.ecr_repository.repository_url}:latest"
   description = "The URI of the most recent image in the ECR repository"
 }
