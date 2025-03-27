@@ -3,3 +3,9 @@ retail_sales_dataset.csv
 retail_data.csv
 clean.py
 venv/
+.env
+python/
+venv/
+tf-resources/.terraform/
+awscliv2.zip
+~/.aws
