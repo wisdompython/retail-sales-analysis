@@ -4,24 +4,24 @@
 
 resource "aws_security_group" "ecs_container_instance" {
   name        = "tf-dae-ecs-sg"
-  description = "Security group for ECS task running on Fargate"
+  description = "Allow public internet access to ECS container on port 8501"
   vpc_id      = var.vpc_id
+}
 
-  ingress {
-    description     = "Allow ingress traffic from ALB on HTTP only"
-    from_port       = 8501
-    to_port         = 8501
-    protocol        = "tcp"
-    security_groups = [aws_security_group.alb.id]
-  }
+resource "aws_vpc_security_group_ingress_rule" "ecs_ingress" {
+  description                  = "Allow ingress traffic from ALB on HTTP only"
+  security_group_id            = aws_security_group.ecs_container_instance.id
+  from_port                    = 8501
+  to_port                      = 8501
+  ip_protocol                  = "tcp"
+  referenced_security_group_id = aws_security_group.alb.id
+}
 
-  egress {
-    description = "Allow all egress traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_vpc_security_group_egress_rule" "ecs_egress" {
+  description       = "Allow all egress traffic"
+  security_group_id = aws_security_group.ecs_container_instance.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = -1
 }
 
 ########################################################################################################################
@@ -32,20 +32,18 @@ resource "aws_security_group" "alb" {
   name        = "tf-dae-alb-sg"
   description = "Security group for ALB"
   vpc_id      = var.vpc_id
+}
 
-  ingress {
-    description = "allow public access to fargate ECS"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_vpc_security_group_ingress_rule" "alb_ingress" {
+  description       = "Allow public access to fargate ECS"
+  security_group_id = aws_security_group.alb.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
+}
 
-  egress {
-    description = "Allow all egress traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+resource "aws_vpc_security_group_egress_rule" "alb_egress" {
+  description       = "Allow all egress traffic"
+  security_group_id = aws_security_group.alb.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1"
 }
