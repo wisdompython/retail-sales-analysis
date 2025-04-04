@@ -57,7 +57,7 @@ jobs:
         
       - name: Initialise project and view terraform plan
         run: |
-          cd terraform
+          cd tf-resources
           terraform fmt
           terraform init
           terraform apply -auto-approve
