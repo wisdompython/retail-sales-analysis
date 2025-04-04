@@ -35,6 +35,7 @@ df_lower = df.select([col(c).alias(c.lower()) for c in df.columns])
 
 # Rename specific columns
 df_renamed = df_lower.withColumnRenamed("price per unit", "unit_price")
+df_renamed = df_lower.withColumnRenamed("product category", "category")
 
 # Convert 'date' column to datetime type
 df_renamed = df_renamed.withColumn("date", to_date(col("date")))

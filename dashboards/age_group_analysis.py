@@ -5,7 +5,7 @@ from fetch_data import get_spending_data  # Only import what you need
 def age_group_purchases():
     st.header("Spending Power by Age Group")
     df = get_spending_data()
-    fig = px.histogram(df, x='age group', y='total amount')
+    fig = px.histogram(df, x='age group', y='total_amount')
     st.plotly_chart(fig, key="graph_5")
 
 col1, col2 = st.columns(2)

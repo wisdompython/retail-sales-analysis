@@ -16,13 +16,13 @@ def plot_age_group():
 def spending_power():
     st.header("Spending Power")
     df = get_spending_data()
-    fig = px.histogram(df, x='gender', y='total amount')
+    fig = px.histogram(df, x='gender', y='total_amount')
     st.plotly_chart(fig, graph=15)
 
 def purchase_by_gender(gender):
     st.header(f"{gender} purchases".capitalize())
     df = get_gender_data(gender)
-    fig = px.histogram(df, x='product category', y='total amount')
+    fig = px.histogram(df, x='category', y='total_amount')
     st.plotly_chart(fig, use_container_width=True, key=f"plot_{gender}")
 
 col1, col2 = st.columns(2)
