@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket = "dae-codeathon-tfstatefile"
-    key    = "dae-streamlit-dev"
-    region = "us-east-1"
-
+    bucket         = "dae-terraform-state-bucket-v2"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"
+    encrypt        = true
     use_lockfile = true
   }
 }
