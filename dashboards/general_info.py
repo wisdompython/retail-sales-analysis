@@ -11,13 +11,13 @@ def plot_age_group():
     st.header("Age group distribution")
     age_data = get_age_group_data()
     fig = px.bar(x=age_data.index, y=age_data.values)
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, graph=10)
 
 def spending_power():
     st.header("Spending Power")
     df = get_spending_data()
     fig = px.histogram(df, x='gender', y='total amount')
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, graph=15)
 
 def purchase_by_gender(gender):
     st.header(f"{gender} purchases".capitalize())
